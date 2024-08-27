@@ -1,0 +1,70 @@
+{
+  "name": "@algorandfoundation/provider",
+  "version": "0.0.1",
+  "description": "Wallet Provider Interfaces",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json",
+    "test": "jest src --verbose",
+    "test:cov": "jest src --coverage"
+  },
+  "author": "Algorand Foundation",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@algorandfoundation/algo-models": "^0.0.2",
+    "algo-msgpack-with-bigint": "^2.1.1",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.7.1",
+    "@types/uuid": "^10.0.0",
+    "ts-jest": "^29.1.1",
+    "tweetnacl": "^1.0.3",
+    "typescript": "^5.2.2",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^3.0.1",
+    "uuid": "^10.0.0"
+  },
+  "dependencies": {
+    "cbor-x": "^1.6.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      ".+\\.(t|j)s$": [
+        "ts-jest",
+        {
+          "useEsm": true
+        }
+      ]
+    },
+    "coverageDirectory": "./coverage",
+    "collectCoverageFrom": [
+      "**/!(*.module|*.interface|main|repl|exception.filter|logging.interceptor).{ts,js}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "./coverage",
+      "./index.ts"
+    ],
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "(.+)\\.js": "$1"
+    },
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ]
+  }
+}

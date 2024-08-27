@@ -1,0 +1,19 @@
+{
+  "name": "ts",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@algorandfoundation/provider": "file:../.."
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.2.2"
+  }
+}
