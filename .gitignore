@@ -1,7 +1,7 @@
-dist/*
-!dist/esm
-dist/esm/*
-!dist/esm/package.json
+#dist/*
+#!dist/esm
+#dist/esm/*
+#!dist/esm/package.json
 
 # Logs
 logs
