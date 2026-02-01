@@ -53,7 +53,7 @@ export function fromBase64Url(base64url: string): Uint8Array {
   );
 }
 
-export function toSignTransactionsParamsRequestMessage(messageId: string, providerId: string, txns: IARC0001Transaction[]): string {
+export function toSignTransactionsParamsRequestMessage(messageId: string, providerId: string, txns: IARC0001Transaction[], encoding: 'cbor' | 'json' = 'cbor'): string {
   const signParams = new SignTransactionsParamsBuilder()
       .addProviderId(providerId)
       .addTxns(txns)
@@ -61,14 +61,16 @@ export function toSignTransactionsParamsRequestMessage(messageId: string, provid
   const request = new RequestMessageBuilder(messageId, "arc0027:sign_transactions:request")
       .addParams(signParams)
       .get()
-  const encoded = encode(request)
+  const encoded = encoding === 'json'
+    ? new TextEncoder().encode(JSON.stringify(request))
+    : encode(request)
   if(encoded.length > LARGE_MESSAGE_SIZE){
     throw new Error(LARGE_MESSAGE_ERROR)
   }
   return toBase64URL(encoded)
 }
 
-export function toSignTransactionsResultResponseMessage(messageId: string, providerId: string, requestId: string, stxns: string[]): string {
+export function toSignTransactionsResultResponseMessage(messageId: string, providerId: string, requestId: string, stxns: string[], encoding: 'cbor' | 'json' = 'cbor'): string {
   const signResult = new SignTransactionsResultBuilder()
       .addProviderId(providerId)
       .addSignedTxns(stxns)
@@ -76,7 +78,9 @@ export function toSignTransactionsResultResponseMessage(messageId: string, provi
   const request = new ResponseMessageBuilder(messageId,requestId, "arc0027:sign_message:response")
       .addResult(signResult)
       .get()
-  const encoded = encode(request)
+  const encoded = encoding === 'json'
+    ? new TextEncoder().encode(JSON.stringify(request))
+    : encode(request)
   if(encoded.length > LARGE_MESSAGE_SIZE){
     throw new Error(LARGE_MESSAGE_ERROR)
   }
